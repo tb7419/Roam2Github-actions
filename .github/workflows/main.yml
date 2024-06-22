@@ -14,21 +14,21 @@ jobs:
     name: Backup
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           repository: ${{ secrets.BACKUP_REPO }}
           token: ${{ secrets.ACCESS_TOKEN }}
       
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '14'
+          node-version: '20'
       
       - name: Run Backup
         run: |
           cd /tmp
           git clone -q https://github.com/everruler12/roam2github.git roam2github
-          cd $_
+          cd roam2github
           npm i
           npm run backup -s
         env:
@@ -40,6 +40,6 @@ jobs:
           BACKUP_MARKDOWN: true
 
       - name: Commit Changes
-        uses: everruler12/git-auto-commit-action@latest
+        uses: everruler12/git-auto-commit-action@v4
         with:
           commit_message: Automatic backup
