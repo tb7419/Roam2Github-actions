@@ -5,14 +5,14 @@ on:
     branches:
       - main
   schedule:
-      # Here you can change how often your backup runs. See https://crontab.guru/examples.html
-      - cron: "0 * * * *"
+      # Runs at midnight UTC every day
+      - cron: "0 0 * * *"
 
 jobs:
   backup:
     runs-on: ubuntu-latest
     name: Backup
-    timeout-minutes: 20
+    timeout-minutes: 60 # Increased timeout to 60 minutes
     steps:
       - uses: actions/checkout@v4
         with:
